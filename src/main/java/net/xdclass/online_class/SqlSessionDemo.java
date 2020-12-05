@@ -2,6 +2,7 @@ package net.xdclass.online_class;
 
 import net.xdclass.online_class.dao.VideoMapper;
 import net.xdclass.online_class.dao.VideoOrderMapper;
+import net.xdclass.online_class.domain.User;
 import net.xdclass.online_class.domain.Video;
 import net.xdclass.online_class.domain.VideoOrder;
 import org.apache.ibatis.io.Resources;
@@ -73,8 +74,11 @@ public class SqlSessionDemo {
 //            videomap.put("createTime", new Date());
 //            videoMapper.deletevideo(videomap);
 
-            List<VideoOrder> videoOrderList=videoOrderMapper.queryVideoOrderList();
-            System.out.println(videoOrderList.toString());
+            //List<VideoOrder> videoOrderList=videoOrderMapper.queryVideoOrderList();
+            //System.out.println(videoOrderList.toString());
+
+            List<User> userList=videoOrderMapper.queryUserOrder();
+            System.out.println(userList.toString());
         }
 
     }

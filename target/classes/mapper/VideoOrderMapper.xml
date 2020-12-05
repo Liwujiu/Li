@@ -48,5 +48,40 @@ mybatis是使用接口动态代理
          from video_order o left join user u on o.user_id = u.id
 
     </select>
+    <resultMap id="UserOrderResultMap" type="User">
+        <id column="user_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="head_img" property="headImg"/>
+        <result column="create_time" property="createTime"/>
+        <result column="phone" property="phone"/>
+        <collection property="videoOrderList" ofType="VideoOrder">
+            <id column="order_id" property="id"></id>
+            <result column="user_id" property="userId"/>
+            <result column="out_trade_no" property="outTradeNo"/>
+            <result column="create_time" property="createTime"/>
+            <result column="state" property="state"/>
+            <result column="total_fee" property="totalFee"/>
+            <result column="video_id" property="videoId"/>
+            <result column="video_title" property="videoTitle"/>
+        </collection>
+
+    </resultMap>
+
+    <select id="queryUserOrder" resultMap="UserOrderResultMap">
+        select
+        u.id,
+        u.name,
+        u.head_img,
+        u.create_time,
+        u.phone,
+        o.id order_id,
+        o.out_trade_no,
+        o.create_time,
+        o.state,
+        o.total_fee,
+        o.video_id,
+        o.video_title
+        from user u left join video_order o on u.id=o.user_id
+    </select>
 
 </mapper>
