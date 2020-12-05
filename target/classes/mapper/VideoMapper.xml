@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+namespace: 名称空间，一般需要保持全局唯一， 最好是和dao层的java接口一致，
+可以映射 sql语句 到对应的方法名称和参数、返回类型
+
+mybatis是使用接口动态代理
+
+
+-->
+<mapper namespace="net.xdclass.online_class.dao.VideoMapper">
+
+    <sql id="Video_base">
+        id,title,summary,cover_img
+    </sql>
+
+    <!--
+    statement sql
+    id： 当前mapper下需要唯一
+    resultType : sql查询结果集的封装
+    -->
+    <!--<select id="selectById" resultType="net.xdclass.online_class.domain.Video">-->
+    <select id="selectById" resultType="Video">
+
+
+        select <include refid="Video_base"/> from video where id = #{video_id}
+
+    </select>
+
+
+    <select id="selectByPointAndTitlelike" resultType="net.xdclass.online_class.domain.Video">
+
+        select * from video where point = #{point} and title like concat('%',#{title},'%');
+
+    </select>
+
+    <insert id="add" parameterType="net.xdclass.online_class.domain.Video" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        INSERT INTO `test`.`video`(`title`, `summary`, `cover_img`, `price`, `create_time`,`point`)
+         VALUES (#{title,jdbcType=VARCHAR},#{summary,jdbcType=VARCHAR},#{coverImg,jdbcType=VARCHAR},#{price,jdbcType=INTEGER},#{createTime,jdbcType=TIMESTAMP},
+         #{point,jdbcType=DOUBLE});
+    </insert>
+
+    <insert id="addBatch" parameterType="net.xdclass.online_class.domain.Video" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+
+        INSERT INTO `video` ( `title`, `summary`, `cover_img`, `price`, `create_time`, `point`)
+        VALUES
+
+        <foreach collection="list" item="video" separator=",">
+
+            (#{video.title,jdbcType=VARCHAR},#{video.summary,jdbcType=VARCHAR},#{video.coverImg,jdbcType=VARCHAR},
+            #{video.price,jdbcType=INTEGER},
+            #{video.createTime,jdbcType=TIMESTAMP},#{video.point,jdbcType=DOUBLE})
+
+        </foreach>
+    </insert>
+
+    <!--<insert id="addBatch" parameterType="net.xdclass.online_class.domain.Video">
+            INSERT INTO `test`.`video`(`title`, `summary`, `cover_img`, `price`, `create_time`,`point`)
+        <foreach collection="list" item="video" index="index" separator=",">
+           VALUES (#{video.title,jdbcType=VARCHAR},#{video.summary,jdbcType=VARCHAR},#{video.coverImg,jdbcType=VARCHAR},#{video.price,jdbcType=INTEGER},
+         #{video.createTime,jdbcType=TIMESTAMP},#{video.point,jdbcType=DOUBLE})
+         </foreach>
+    </insert>-->
+
+    <select id="selectListByXML" resultType="net.xdclass.online_class.domain.Video">
+
+        select * from video
+
+    </select>
+
+    <update id="updatevideo" parameterType="net.xdclass.online_class.domain.Video">
+    update video
+    set
+    title = #{title,jdbcType=VARCHAR},
+
+    summary = #{summary,jdbcType=VARCHAR},
+
+    cover_img = #{coverImg,jdbcType=VARCHAR},
+
+    price = #{price,jdbcType=INTEGER},
+
+    c_id = #{cId,jdbcType=INTEGER},
+
+    point = #{point,jdbcType=INTEGER},
+
+    learn_base = #{learnBase,jdbcType=VARCHAR},
+
+    learn_result = #{learnResult,jdbcType=VARCHAR},
+
+    total_episode = #{totalEpisode,jdbcType=INTEGER},
+
+    update_time = now()
+
+    WHERE
+
+    id = #{id}
+
+    </update>
+
+
+    <update id="selectiveupdatevideo" parameterType="net.xdclass.online_class.domain.Video">
+   update video
+    <trim prefix="set" suffixOverrides=",">
+        <if test="title!=null"> title = #{title,jdbcType=VARCHAR},</if>
+
+        <if test="summary!=null"> summary = #{summary,jdbcType=VARCHAR},</if>
+
+        <if test="coverImg!=null"> cover_img = #{coverImg,jdbcType=VARCHAR},</if>
+
+        <if test="price!=null"> price = #{price,jdbcType=INTEGER},</if>
+
+        <if test="createTime!=null"> create_time = #{createTime,jdbcType=INTEGER},</if>
+
+        <if test="point!=null"> point = #{point,jdbcType=INTEGER},</if>
+
+    </trim>
+
+    WHERE
+
+    id = #{id}
+    </update>
+    <delete id="deletevideo" parameterType="Map">
+        delete from video where price &lt; #{price} and create_time &gt; #{createTime}
+    </delete>
+
+    <resultMap id="VideoResultMap" type="Video">
+
+        <!--
+        id 指定查询列的唯一标示
+        column 数据库字段的名称
+        property pojo类的名称
+        -->
+        <id column="id" property="id" jdbcType="INTEGER" />
+
+        <result column="video_tile" property="title"  jdbcType="VARCHAR" />
+        <result column="summary" property="summary"  jdbcType="VARCHAR" />
+        <result column="cover_img"  property="coverImg"  jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <select id="selectBaseFieldByIdWithResultMap" resultMap="VideoResultMap">
+select id , title as video_tile, summary, cover_img from video where id = #{video_id}
+</select>
+
+</mapper>
