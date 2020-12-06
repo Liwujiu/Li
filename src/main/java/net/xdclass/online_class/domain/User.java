@@ -1,5 +1,6 @@
 package net.xdclass.online_class.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @Date 2020/12/4
  * @Version 1.0
  */
-public class User {
+public class User implements Serializable {
     private int id;
     private String name;
     private String pwd;

@@ -86,7 +86,7 @@ public class VideoOrder {
         return videoTitle;
     }
 
-    public void setVideoTitle(String videoTitle) {
+    public void setVideoTitle() {
         this.videoTitle = videoTitle;
     }
 

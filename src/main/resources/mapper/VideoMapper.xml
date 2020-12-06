@@ -16,6 +16,8 @@ mybatis是使用接口动态代理
     <sql id="Video_base">
         id,title,summary,cover_img
     </sql>
+    <!--二级缓存子开关-->
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024"/>
 
     <!--
     statement sql

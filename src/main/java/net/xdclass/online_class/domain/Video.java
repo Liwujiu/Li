@@ -1,5 +1,6 @@
 package net.xdclass.online_class.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  *
  * 视频类
  */
-public class Video {
+public class Video implements Serializable {
 
     /**
      * 主键

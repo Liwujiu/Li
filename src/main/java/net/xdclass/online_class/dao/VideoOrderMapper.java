@@ -17,4 +17,7 @@ public interface VideoOrderMapper {
     List<VideoOrder> queryVideoOrderList();
 
     List<User> queryUserOrder();
+
+    List<VideoOrder> queryVideoOrderListLazy();
+
 }

@@ -76,9 +76,15 @@ public class SqlSessionDemo {
 
             //List<VideoOrder> videoOrderList=videoOrderMapper.queryVideoOrderList();
             //System.out.println(videoOrderList.toString());
+//
+//            List<User> userList=videoOrderMapper.queryUserOrder();
+//            System.out.println(userList.toString());
 
-            List<User> userList=videoOrderMapper.queryUserOrder();
-            System.out.println(userList.toString());
+            List<VideoOrder> videoOrderList=videoOrderMapper.queryVideoOrderListLazy();
+            //System.out.println(videoOrder.toString());
+            for(VideoOrder videoOrder:videoOrderList){
+                System.out.println(videoOrder.toString());
+            }
         }
 
     }
