@@ -33,7 +33,7 @@ public class TransactionDemo {
             Video video1 = new Video();
             video1.setTitle("微服务架构");
             videoMapper.add(video1);
-            int i = 1 / 0;
+            //int i = 1 / 0;
             sqlSession.commit();
         } catch (Exception e) {
             e.printStackTrace();
